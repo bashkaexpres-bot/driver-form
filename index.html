@@ -403,13 +403,16 @@
     function signer(name, canvasId) {
       lineField("Print:", name, M, 250, y + 22);
       lineField("Sign:", "", 320, W - M - 320, y + 22);
-      var c = $(canvasId), ratio = c.width / c.height, ih = 40, iw = ih * ratio;
-      if (iw > 190) { iw = 190; ih = iw / ratio; }
-      try { doc.addImage(c.toDataURL("image/png"), "PNG", 358, y + 24 - ih, iw, ih); } catch (e) {}
+      if (canvasId) {
+        var c = $(canvasId), ratio = c.width / c.height, ih = 40, iw = ih * ratio;
+        if (iw > 190) { iw = 190; ih = iw / ratio; }
+        try { doc.addImage(c.toDataURL("image/png"), "PNG", 358, y + 24 - ih, iw, ih); } catch (e) {}
+      }
       y += 54;
     }
     signer($("name1").value.trim(), "sig1");
     if ($("isTeam").checked) signer($("name2").value.trim(), "sig2");
+    else signer("", null);
 
     doc.setFont("helvetica", "italic"); doc.setFontSize(8); doc.setTextColor(110);
     doc.text("Completed electronically on " + new Date().toLocaleString(), M, 765);
