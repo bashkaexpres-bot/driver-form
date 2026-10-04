@@ -350,7 +350,7 @@
     doc.text("Please read each of the following statements and initial your agreement/acknowledgment.", W / 2, y, { align: "center" });
     y += 22;
 
-    var LH = 12.5, TX = 118, TW = W - M - TX;
+    var LH = 12.5, TX = 140, TW = W - M - TX;
     function row(num, text, inits, isTeamRow) {
       doc.setFont("helvetica", "normal"); doc.setFontSize(10);
       var body = isTeamRow ? "\u2013 " + text : text;
@@ -361,13 +361,13 @@
       inits.forEach(function (v, k) {
         var ly = y + 2 + k * 20;
         doc.setLineWidth(0.7);
-        doc.line(M, ly + 1, M + 52, ly + 1);
-        doc.text(String(v).toUpperCase(), M + 26, ly - 2, { align: "center" });
+        doc.line(M, ly + 1, M + 44, ly + 1);
+        doc.text(String(v).toUpperCase(), M + 22, ly - 2, { align: "center" });
       });
-      doc.setFont("helvetica", "normal"); doc.setFontSize(9);
-      doc.text(inits.length > 1 ? "Initials" : "Initial", M + 58, y + 1);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(8);
+      doc.text(inits.length > 1 ? "Initials" : "Initial", M + 50, y + 1);
       doc.setFontSize(10);
-      doc.text(num + ")", TX - 20, y);
+      doc.text(num + ")", TX - 16, y);
       if (isTeamRow) {
         doc.setFont("helvetica", "bold");
         doc.text("FOR DRIVER TEAMS ONLY", TX, y);
