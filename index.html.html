@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bashka Express LLC - Driver Security Acknowledgement</title>
+<meta name="description" content="Courier Driver Security Awareness Acknowledgement (SEC-FRM-057). Fill out and sign on your phone.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bashka Express LLC">
+<meta property="og:title" content="Bashka Express LLC - Driver Security Acknowledgement">
+<meta property="og:description" content="Fill out and sign on your phone. Takes 2 minutes.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%9B%3C/text%3E%3C/svg%3E">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #eceff2;
+    --card: #ffffff;
+    --ink: #17202a;
+    --muted: #5b6672;
+    --line: #c5ccd3;
+    --accent: #0b5cab;
+    --accent-ink: #ffffff;
+    --bad: #b3261e;
+    --ok: #1c7a3e;
+    --sig-bg: #fbfcfd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12171c; --card: #1b222a; --ink: #eef1f4; --muted: #9aa6b2;
+      --line: #36424e; --accent: #5aa6ee; --accent-ink: #08121d;
+      --bad: #ff8a80; --ok: #6fd391; --sig-bg: #ffffff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12171c; --card: #1b222a; --ink: #eef1f4; --muted: #9aa6b2;
+    --line: #36424e; --accent: #5aa6ee; --accent-ink: #08121d;
+    --bad: #ff8a80; --ok: #6fd391; --sig-bg: #ffffff;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 16px 14px 40px; }
+  header.doc {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 14px;
+  }
+  header.doc .org { font-weight: 700; color: var(--accent); font-size: 15px; }
+  header.doc h1 { font-size: 21px; line-height: 1.25; margin: 4px 0 8px; }
+  header.doc dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; font-size: 14px; color: var(--muted); }
+  header.doc dt { font-weight: 600; }
+  header.doc dd { margin: 0; }
+  .lead { margin: 0 0 12px; font-weight: 600; }
+  .item {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 10px;
+    display: grid; grid-template-columns: 1fr 76px; gap: 12px; align-items: start;
+  }
+  .item[hidden] { display: none; }
+  .item p { margin: 0; font-size: 16px; }
+  .item .n { font-weight: 700; margin-right: 4px; }
+  .init label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 3px; text-align: center; }
+  input[type=text], input[type=date] {
+    width: 100%; min-height: 48px; font: inherit; color: var(--ink);
+    background: var(--card); border: 2px solid var(--line); border-radius: 8px; padding: 8px 10px;
+  }
+  input[type=date] { -webkit-appearance: none; appearance: none; display: block; min-width: 0; max-width: 100%; text-align: left; line-height: normal; }
+  input[type=date]::-webkit-date-and-time-value { text-align: left; min-height: 1.4em; }
+  .init input { text-align: center; font-weight: 700; font-size: 20px; text-transform: uppercase; padding: 8px 4px; }
+  .init + .init { margin-top: 8px; }
+  input:focus-visible, button:focus-visible, canvas:focus-visible, .check input:focus-visible {
+    outline: 3px solid var(--accent); outline-offset: 2px;
+  }
+  .invalid { border-color: var(--bad) !important; }
+  .team-toggle { margin: 4px 0 10px; }
+  .check { display: flex; gap: 12px; align-items: center; min-height: 48px; font-weight: 600; }
+  .check input { width: 26px; height: 26px; accent-color: var(--accent); flex: none; }
+  .sec {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; margin: 16px 0 12px;
+  }
+  .sec h2 { font-size: 18px; margin: 0 0 12px; }
+  .field { margin-bottom: 14px; }
+  .field > label { display: block; font-weight: 600; margin-bottom: 4px; }
+  .sigwrap { position: relative; }
+  canvas.sig {
+    display: block; width: 100%; height: 150px; background: var(--sig-bg);
+    border: 2px dashed var(--line); border-radius: 8px; touch-action: none; cursor: crosshair;
+  }
+  canvas.sig.signed { border-style: solid; }
+  .sig-hint { position: absolute; inset: 0; display: grid; place-items: center; color: #8a949e; pointer-events: none; font-size: 15px; }
+  .sig-hint.hide { display: none; }
+  .row { display: flex; gap: 10px; margin-top: 6px; }
+  button { font: inherit; font-weight: 700; border-radius: 10px; min-height: 48px; padding: 10px 18px; cursor: pointer; }
+  button.link { background: transparent; border: 1px solid var(--line); color: var(--ink); min-height: 40px; padding: 6px 14px; font-weight: 600; }
+  button.primary { width: 100%; background: var(--accent); color: var(--accent-ink); border: 0; font-size: 18px; min-height: 56px; }
+  button.primary:disabled { opacity: .6; cursor: progress; }
+  #status { margin-top: 12px; min-height: 24px; font-weight: 600; }
+  #status.err { color: var(--bad); }
+  #status.ok { color: var(--ok); }
+  .small { font-size: 14px; color: var(--muted); }
+  .how { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; }
+  .how h2 { font-size: 17px; margin: 0 0 6px; }
+  .how ol { margin: 0; padding-left: 22px; }
+  .how li { margin: 3px 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div style="font-weight:700;margin:0 0 10px;color:var(--muted)">Bashka Express LLC</div>
+  <header class="doc">
+    <div class="org">AmerisourceBergen</div>
+    <h1>Courier Driver Security Awareness Acknowledgement</h1>
+    <dl>
+      <dt>Document</dt><dd>SEC-FRM-057</dd>
+      <dt>Version</dt><dd>1.01</dd>
+      <dt>Effective</dt><dd>09/22/2022</dd>
+      <dt>Legacy</dt><dd>CSRA Form 57</dd>
+      <dt>Content owner</dt><dd>Regulatory Assurance</dd>
+    </dl>
+  </header>
+
+  <section class="how" aria-labelledby="howh">
+    <h2 id="howh">How to fill this out (2 minutes)</h2>
+    <ol>
+      <li>Read each statement and type your initials in its box.</li>
+      <li>Driving as a team? Tick the team box. Both drivers initial and sign.</li>
+      <li>Type your name and sign with your finger.</li>
+      <li>Tap <b>Create PDF and send</b>, then choose Text, Email or WhatsApp and send it to your manager.</li>
+    </ol>
+  </section>
+
+  <p class="lead">Read each statement and type your initials in the box beside it.</p>
+
+  <form id="f" onsubmit="return false" novalidate>
+    <div id="items"></div>
+
+    <div class="team-toggle">
+      <label class="check"><input type="checkbox" id="isTeam"> We are a driver team (two drivers)</label>
+    </div>
+    <div id="teamItem"></div>
+
+    <section class="sec">
+      <h2>Courier driver name(s)</h2>
+
+      <div class="field">
+        <label for="courier">Courier (company)</label>
+        <input type="text" id="courier" value="Bashka Express LLC" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date">
+      </div>
+
+      <div class="field">
+        <label for="name1">Driver 1: print name</label>
+        <input type="text" id="name1" autocomplete="name" autocapitalize="words">
+      </div>
+      <div class="field">
+        <label id="sig1l">Driver 1: sign with your finger</label>
+        <div class="sigwrap">
+          <canvas class="sig" id="sig1" role="img" aria-labelledby="sig1l" tabindex="0"></canvas>
+          <div class="sig-hint" id="hint1">Sign here</div>
+        </div>
+        <div class="row"><button type="button" class="link" data-clear="sig1">Clear signature</button></div>
+      </div>
+
+      <div id="driver2" hidden>
+        <div class="field">
+          <label for="name2">Driver 2: print name</label>
+          <input type="text" id="name2" autocapitalize="words">
+        </div>
+        <div class="field">
+          <label id="sig2l">Driver 2: sign with your finger</label>
+          <div class="sigwrap">
+            <canvas class="sig" id="sig2" role="img" aria-labelledby="sig2l" tabindex="0"></canvas>
+            <div class="sig-hint" id="hint2">Sign here</div>
+          </div>
+          <div class="row"><button type="button" class="link" data-clear="sig2">Clear signature</button></div>
+        </div>
+      </div>
+    </section>
+
+    <button type="button" class="primary" id="send">Create PDF and send</button>
+    <div id="status" role="status" aria-live="polite"></div>
+    <p class="small">Tap the button, then choose Text, Email or WhatsApp to send the PDF to your manager.</p>
+  </form>
+</main>
+
+<script>
+(function () {
+  var ITEMS = [
+    "My truck is adequately fueled, and I understand that no stops are to be made within the first 200 miles except for emergencies, DOT-mandated inspections, etc. Any stop within the first 200 miles requires notification to my dispatch center.",
+    "I understand security measures must be taken, such as but not limited to: securing doors and windows, utilize security/alarms systems if available, breaks should be conducted efficiently and in a known safe haven, minimizing downtime, all reasonable attempts should be taken to keep tractor and trailer in line-of-site, back against walls or structures when stopped, etc.",
+    "I understand that I will not transport any unauthorized persons.",
+    "I understand that I must report any suspicious activity, vehicles, persons to dispatch and AB immediately.",
+    "I understand that I must advise my dispatch each time the truck is stopped.",
+    "I understand that prior to restart after a stop, I am required to conduct an inspection of the truck/trailer and ensure that the seal is intact, and confirm the trailer is locked. Dispatcher will be contacted once the trip has been resumed.",
+    "I understand that if I arrive at a destination facility after hours, I must remain with the truck/trailer until received."
+  ];
+  var TEAM_TEXT = "We understand that one driver will remain with the truck at all times and the truck/trailer may never be left unattended or dropped.";
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  var itemsEl = $("items");
+  ITEMS.forEach(function (t, i) {
+    var d = document.createElement("div");
+    d.className = "item";
+    d.innerHTML =
+      '<p><span class="n">' + (i + 1) + ')</span></p>' +
+      '<div class="init"><label for="in' + i + '">Initial</label>' +
+      '<input type="text" id="in' + i + '" maxlength="4" autocapitalize="characters" autocomplete="off" aria-label="Initials for statement ' + (i + 1) + '"></div>';
+    d.querySelector("p").appendChild(document.createTextNode(" " + t));
+    itemsEl.appendChild(d);
+  });
+
+  var d8 = document.createElement("div");
+  d8.className = "item";
+  d8.hidden = true;
+  d8.innerHTML =
+    '<p><span class="n">8)</span> <strong>FOR DRIVER TEAMS ONLY</strong> \u2013 </p>' +
+    '<div><div class="init"><label for="in7a">Driver 1</label><input type="text" id="in7a" maxlength="4" autocapitalize="characters" autocomplete="off"></div>' +
+    '<div class="init"><label for="in7b">Driver 2</label><input type="text" id="in7b" maxlength="4" autocapitalize="characters" autocomplete="off"></div></div>';
+  d8.querySelector("p").appendChild(document.createTextNode(TEAM_TEXT));
+  $("teamItem").appendChild(d8);
+
+  $("isTeam").addEventListener("change", function () {
+    var on = this.checked;
+    d8.hidden = !on;
+    $("driver2").hidden = !on;
+    if (on) sizeCanvas("sig2");
+  });
+
+  (function () {
+    var n = new Date();
+    $("date").value = n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
+  })();
+
+  var pads = {};
+  function sizeCanvas(id) {
+    var c = $(id);
+    if (!c || c.offsetWidth === 0) return;
+    var ratio = Math.max(window.devicePixelRatio || 1, 1);
+    var w = c.offsetWidth, h = c.offsetHeight;
+    var keep = pads[id] && pads[id].has ? c.toDataURL() : null;
+    c.width = Math.round(w * ratio);
+    c.height = Math.round(h * ratio);
+    var ctx = c.getContext("2d");
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.lineWidth = 2.4; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#0a1a33";
+    if (keep) {
+      var img = new Image();
+      img.onload = function () { ctx.drawImage(img, 0, 0, w, h); };
+      img.src = keep;
+    }
+  }
+  function initPad(id, hintId) {
+    var c = $(id), hint = $(hintId);
+    pads[id] = { has: false };
+    var drawing = false, last = null;
+    function pos(e) { var r = c.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    c.addEventListener("pointerdown", function (e) {
+      e.preventDefault();
+      drawing = true; last = pos(e);
+      try { c.setPointerCapture(e.pointerId); } catch (x) {}
+      var ctx = c.getContext("2d");
+      ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(last.x + 0.01, last.y + 0.01); ctx.stroke();
+      pads[id].has = true; hint.classList.add("hide"); c.classList.add("signed"); c.classList.remove("invalid");
+    });
+    c.addEventListener("pointermove", function (e) {
+      if (!drawing) return;
+      e.preventDefault();
+      var p = pos(e), ctx = c.getContext("2d");
+      ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+      last = p;
+    });
+    function end() { drawing = false; }
+    c.addEventListener("pointerup", end);
+    c.addEventListener("pointercancel", end);
+    c.addEventListener("pointerleave", end);
+    sizeCanvas(id);
+  }
+  initPad("sig1", "hint1");
+  initPad("sig2", "hint2");
+  window.addEventListener("resize", function () { sizeCanvas("sig1"); sizeCanvas("sig2"); });
+
+  document.querySelectorAll("[data-clear]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var id = b.getAttribute("data-clear"), c = $(id), ctx = c.getContext("2d");
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, c.width, c.height); ctx.restore();
+      pads[id].has = false;
+      $(id === "sig1" ? "hint1" : "hint2").classList.remove("hide");
+      c.classList.remove("signed");
+    });
+  });
+
+  function setStatus(msg, cls) { var s = $("status"); s.textContent = msg; s.className = cls || ""; }
+  function mark(el, bad) { el.classList.toggle("invalid", !!bad); }
+  function validate() {
+    var bad = [], isTeam = $("isTeam").checked;
+    for (var i = 0; i < ITEMS.length; i++) {
+      var el = $("in" + i), miss = !el.value.trim(); mark(el, miss); if (miss) bad.push(el);
+    }
+    if (isTeam) {
+      ["in7a", "in7b"].forEach(function (id) { var el = $(id), miss = !el.value.trim(); mark(el, miss); if (miss) bad.push(el); });
+    } else { mark($("in7a"), false); mark($("in7b"), false); }
+    ["courier", "date", "name1"].forEach(function (id) { var el = $(id), miss = !el.value.trim(); mark(el, miss); if (miss) bad.push(el); });
+    if (!pads.sig1.has) { $("sig1").classList.add("invalid"); bad.push($("sig1")); }
+    if (isTeam) {
+      var n2 = $("name2"), m2 = !n2.value.trim(); mark(n2, m2); if (m2) bad.push(n2);
+      if (!pads.sig2.has) { $("sig2").classList.add("invalid"); bad.push($("sig2")); }
+    }
+    return bad;
+  }
+
+  function fmtDate(v) { var p = v.split("-"); return p.length === 3 ? p[1] + "/" + p[2] + "/" + p[0] : v; }
+
+  function buildPdf() {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: "pt", format: "letter" });
+    var W = 612, M = 40, y = 40;
+
+    doc.setDrawColor(0); doc.setLineWidth(0.8);
+    doc.rect(M, y, W - 2 * M, 78);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(60, 40, 140);
+    doc.text("AmerisourceBergen", M + 10, y + 44);
+    doc.setTextColor(0);
+    doc.line(M + 150, y, M + 150, y + 78);
+    doc.setFontSize(9); doc.text("Document Title", M + 158, y + 13);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+    doc.text("Courier Driver Security Awareness Acknowledgement", M + 158, y + 28);
+    doc.setFontSize(9);
+    doc.text("Document No.: SEC-FRM-057    Version: 1.01    Effective: 09/22/2022    Page 1 of 1", M + 158, y + 44);
+    doc.text("Legacy Document: CSRA Form 57", M + 158, y + 58);
+    doc.text("Content Owner: Regulatory Assurance", M + 158, y + 71);
+    y += 100;
+
+    doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+    doc.text("DRIVER INSTRUCTIONS:", W / 2, y, { align: "center" });
+    var tw = doc.getTextWidth("DRIVER INSTRUCTIONS:");
+    doc.line(W / 2 - tw / 2, y + 1.5, W / 2 + tw / 2, y + 1.5);
+    y += 15;
+    doc.setFontSize(10);
+    doc.text("Please read each of the following statements and initial your agreement/acknowledgment.", W / 2, y, { align: "center" });
+    y += 22;
+
+    var LH = 12.5, TX = 118, TW = W - M - TX;
+    function row(num, text, inits, isTeamRow) {
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+      var body = isTeamRow ? "\u2013 " + text : text;
+      var lines = doc.splitTextToSize(body, TW);
+      var h = Math.max((lines.length + (isTeamRow ? 1 : 0)) * LH, inits.length > 1 ? 36 : 14);
+      if (y + h > 740) { doc.addPage(); y = 50; }
+      doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+      inits.forEach(function (v, k) {
+        var ly = y + 2 + k * 20;
+        doc.setLineWidth(0.7);
+        doc.line(M, ly + 1, M + 52, ly + 1);
+        doc.text(String(v).toUpperCase(), M + 26, ly - 2, { align: "center" });
+      });
+      doc.setFont("helvetica", "normal"); doc.setFontSize(9);
+      doc.text(inits.length > 1 ? "Initials" : "Initial", M + 58, y + 1);
+      doc.setFontSize(10);
+      doc.text(num + ")", TX - 20, y);
+      if (isTeamRow) {
+        doc.setFont("helvetica", "bold");
+        doc.text("FOR DRIVER TEAMS ONLY", TX, y);
+        doc.setFont("helvetica", "normal");
+        doc.text(lines, TX, y + LH);
+      } else {
+        doc.text(lines, TX, y);
+      }
+      y += h + 10;
+    }
+    ITEMS.forEach(function (t, i) { row(i + 1, t, [$("in" + i).value.trim()], false); });
+    row(8, TEAM_TEXT, $("isTeam").checked ? [$("in7a").value.trim(), $("in7b").value.trim()] : ["", ""], true);
+
+    y += 14;
+    if (y > 600) { doc.addPage(); y = 50; }
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10.5);
+    doc.text("Courier Driver Name(s)", M, y);
+    doc.setFont("helvetica", "normal");
+    doc.text("(Print & Sign)", M + doc.getTextWidth("Courier Driver Name(s) ") + 4, y);
+    y += 26;
+
+    function lineField(label, value, x, w, yy) {
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+      doc.text(label, x, yy);
+      var lx = x + doc.getTextWidth(label) + 6;
+      doc.setLineWidth(0.7); doc.line(lx, yy + 2, x + w, yy + 2);
+      if (value) doc.text(value, lx + 4, yy - 2);
+    }
+    lineField("Courier:", $("courier").value.trim(), M, 260, y);
+    lineField("Date:", fmtDate($("date").value), 340, W - M - 340, y);
+    y += 44;
+
+    function signer(name, canvasId) {
+      lineField("Print:", name, M, 250, y + 22);
+      lineField("Sign:", "", 320, W - M - 320, y + 22);
+      var c = $(canvasId), ratio = c.width / c.height, ih = 40, iw = ih * ratio;
+      if (iw > 190) { iw = 190; ih = iw / ratio; }
+      try { doc.addImage(c.toDataURL("image/png"), "PNG", 358, y + 24 - ih, iw, ih); } catch (e) {}
+      y += 54;
+    }
+    signer($("name1").value.trim(), "sig1");
+    if ($("isTeam").checked) signer($("name2").value.trim(), "sig2");
+
+    doc.setFont("helvetica", "italic"); doc.setFontSize(8); doc.setTextColor(110);
+    doc.text("Completed electronically on " + new Date().toLocaleString(), M, 765);
+
+    return doc.output("blob");
+  }
+
+  function safeName(s) { return s.replace(/[^a-z0-9]+/gi, "_").replace(/^_|_$/g, ""); }
+
+  async function deliver(blob, filename) {
+    var file = new File([blob], filename, { type: "application/pdf" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: "Driver Security Acknowledgement (SEC-FRM-057)" });
+        return "shared";
+      } catch (e) { if (e && e.name === "AbortError") return "cancelled"; }
+    }
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+    return "saved";
+  }
+
+  $("send").addEventListener("click", async function () {
+    var btn = this, bad = validate();
+    if (bad.length) {
+      setStatus("Please fill in the highlighted items.", "err");
+      bad[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      if (bad[0].focus) bad[0].focus({ preventScroll: true });
+      return;
+    }
+    btn.disabled = true; setStatus("Creating PDF\u2026");
+    try {
+      if (!window.jspdf) throw new Error("PDF tool did not load. Check your connection and reload.");
+      var blob = buildPdf();
+      var fn = "SEC-FRM-057_" + safeName($("name1").value.trim()) + "_" + $("date").value + ".pdf";
+      var r = await deliver(blob, fn);
+      if (r === "cancelled") setStatus("Not sent. Tap the button again when ready.");
+      else if (r === "shared") setStatus("Done. PDF shared.", "ok");
+      else setStatus("PDF saved to your phone. Send it from Files or Downloads.", "ok");
+    } catch (e) {
+      setStatus(e && e.message ? e.message : "Could not create the PDF.", "err");
+    } finally { btn.disabled = false; }
+  });
+
+  document.addEventListener("input", function (e) {
+    if (e.target && e.target.classList) e.target.classList.remove("invalid");
+  });
+})();
+</script>
+</body>
+</html>
